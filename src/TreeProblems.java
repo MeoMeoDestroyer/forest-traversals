@@ -182,8 +182,15 @@ public class TreeProblems {
   */
   public static <T> int maxDepth(Node<T> root) {
     if (root == null) return 0;
+    int max = 0;
+    for (Node<T> child : root.children){
+      int childDepth = maxDepth(child);
+      // compare max w the current childDepth -> keep the bigger
+      max = Math.max(max, childDepth);
+    }
 
     //return 
+    return max + 1;
   }
 
   /*
@@ -205,6 +212,19 @@ public class TreeProblems {
    Hint: Use findRoot to start. Then, make a recursive helper method.
   */
   public static int maxDepth(Map<String, List<String>> tree) {
-    return -1;
+    if (tree == null || tree.isEmpty()) return 0;
+    String root = findRoot(tree);
+
+    return maxDepthHelp(tree, root);
   }
-}
+    private static int maxDepthHelp(Map<String, List<String>> tree, String root){
+      int max = 0;
+      
+      for (String child : tree.get(root)){
+        int childDepth = maxDepthHelp(tree, child);
+        max = Math.max(max, childDepth);
+      }
+      return max + 1;
+    }
+
+  }
