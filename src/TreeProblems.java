@@ -1,5 +1,7 @@
 import java.util.List;
 import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TreeProblems {
 
@@ -83,7 +85,13 @@ public class TreeProblems {
    A null tree should return 0
   */
   public static int sumTree(Node<Integer> root) {
-    return -1;
+    if (root == null) return 0;
+    int sum = root.value;
+    for (Node<Integer> child : root.children) {
+      sum+= sumTree(child);
+    }
+
+    return sum;
   }
 
   /*
@@ -106,7 +114,13 @@ public class TreeProblems {
    Hint: There's a simple way to do this!
   */
   public static int sumTree(Map<Integer, List<Integer>> tree) {
-    return -1;
+    if (tree == null) return 0;
+    int sum = 0;
+    // add evey nodde value 1 time only
+    for (int node : tree.keySet()) {
+      sum += node;
+    }
+    return sum;
   }
 
   /*
@@ -129,6 +143,22 @@ public class TreeProblems {
    Hint: No recursion needed! Think about how you would do this by hand.
   */
   public static <T> T findRoot(Map<T, List<T>> tree) {
+    // we store all node that have parents here
+    Set<T> children = new HashSet<>();
+    // get every child in the tree
+    // for each list of children in the tree.values
+    for(List<T> childList : tree.values()){
+      // for each child inside of that childList 
+      for (T child : childList){
+        children.add(child);
+      }
+    }
+    // find the node has no parents -> root
+    for (T node : tree.keySet()){
+      if (!children.contains(node)){
+        return node;
+      }
+    }
     return null;
   }
 
@@ -151,7 +181,9 @@ public class TreeProblems {
    
   */
   public static <T> int maxDepth(Node<T> root) {
-    return -1;
+    if (root == null) return 0;
+
+    //return 
   }
 
   /*
