@@ -63,7 +63,7 @@ public class TreeProblems {
    */
   public static <T> void postOrder(Map<T, List<T>> tree, T root) {
     // root null or if tree is null -> return
-    if (root == null || !tree.containsKey(root)) return;
+    if (tree == null || !tree.containsKey(root)) return;
     for (T child : tree.get(root)) {
       postOrder(tree, child);
     }
